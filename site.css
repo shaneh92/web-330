@@ -63,4 +63,23 @@
     text-align: center;
     font-size: 28px;
 }
-/*The above content is required from the Web 330 HTML, CSS, and JavaScript requirements document on CSS styles in site.css section.*/ 
+/*The above content is required from the Web 330 HTML, CSS, and JavaScript requirements document on CSS styles in site.css section.*/
+/* Below is the additional styling requirments for web-330 assign 1*/
+
+#container {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+#icon-mode:hover {
+    cursor: pointer;
+}
+
+#icon-text {
+    padding-left: 10px;
+}
+
+.pull-right {
+    float: right;
+}
