@@ -17,6 +17,7 @@
     display: inline-grid;
     grid-template-columns: auto;
     width: 600px;
+    background-color: var(--card-background-color);
 }
 
 .card-title {
@@ -24,6 +25,7 @@
     color: #4f3674;
     font-weight: 400;
     font-size: 2em;
+    color: var(--card-title-color);
 }
 
 .card-content {
@@ -51,20 +53,20 @@
 
 .btn-primary {
     width: 100%;
-    background-color: #4f3674;
-    color: white;
+    background-color: var(--btn-background-color);
+    color: var(--btn-color);
 }
 
 .btn-primary:hover {
-    background-color: #d6a800;
-    color: #4F3674;
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-hover-color);
 }
 
 .input {
     padding: 12px 20px;
     margin:  8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border-color);
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -73,13 +75,180 @@
     padding: 12px 20px;
     margin:  8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border-color);
     border-radius: 4px;
     box-sizing: border-box;
 }
-
 /*The above content is required from the Web 330 HTML, CSS, and JavaScript requirements document on CSS styles in theme.css section.*/ 
 
-.light-theme {
+/*Styles for the dark and light themes*/
+body.light-theme {
+    --text-color: #000;
+    --background-color: #fff;
+    --anchor-color: #4F3674;
+    --h1-background-color: #3c275a;
+    --h1-border-color: #d6a800;
+    --heading-background-color: #3c275a;
+    --heading-color: #fff;
+    --heading-border-color: #d6a800;
+    --anchor-hover-color: #4f3674;
+    --anchor-hover-background-color: #d6a800;
+    --card-background-color: #fff;
+    --card-title-color: #4f3674;
+    --btn-background-color:  #D6A800;
+    --btn-color: #fff;
+    --btn-hover-background-color: #d6a800;
+    --btn-hover-color: #4f3674;
+    --input-border-color: #ccc;
+}
+
+body.dark-theme {
+    --text-color: #fafafa;
+    --background-color: #303030;
+    --anchor-color: #fff;
+    --h1-background-color: #9c27b0;
+    --h1-border-color: #9c27b0;
+    --heading-background-color: #424242;
+    --heading-color: #fff;
+    --heading-border-color: #424242;
+    --anchor-hover-color: #D176e1;
+    --anchor-hover-background-color: #303030;
+    --card-background-color: #424242;
+    --card-title-color: #D176e1;
+    --btn-background-color:  #D176e1;
+    --btn-color: #fff;
+    --btn-hover-background-color: #7d4787;
+    --btn-hover-color: #fff;
+    --input-border-color: #303030;
+}
+
+/*styles with the variables*/
+body {
+    font-family: 'Oswald', Verdana, Arial, sans-serif;
+    color: var(--text-color);
+    background: var(--background-color) ;
+}
+
+a {
+    color: var(--anchor-color);
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: var(--anchor-hover-background-color);
+    color: var(--anchor-hover-color);
+}
+
+h1 {
+    color: var(--heading-color);
+    background-color: var(--h1-background-color);
+    padding: 10px;
+    border: 1px solid var(--h1-border-color);
+}
+
+h2, h3, h4 {
+    color: var(--heading-color);
+    background-color: var(--heading-background-color);
+    padding: 10px;
+    border: 1px solid var(--heading-border-color);
+}
+
+
+/*
+body.light-theme {
+    color: #000;
+    background-color: #fff;
     
 }
+
+body.light-theme a {
+    color: #4f3674;
+}
+
+body.light-theme h1 {
+    background-color: #3c275a;
+    border-color: #d6a800;
+}
+
+body.light-theme heading {
+    background-color: #3c275a;
+    color: #fff;
+    border-color: #d6a800;
+}
+
+body.light-theme a:hover {
+    color: #4f3674;
+    background-color: #d6a800;
+}
+
+body.light-theme .card {
+    background-color: #fff;
+}
+
+body.light-theme .card-title {
+    color: #4f3674;
+}
+
+body.light-theme .btn {
+    background-color: #4f3674;
+    color: #fff;
+}
+
+body.light-theme .btn:hover {
+    background-color: #d6a800;
+    color: #4f3674;
+}
+
+body.light-theme .input {
+    border-color: #ccc;
+}
+
+styles for the dark theme
+body.dark-theme {
+    color: #fafafa;
+    background-color: #303030;
+}
+
+body.dark-theme a {
+    color: #fff;
+}
+
+body.dark-theme h1 {
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+}
+
+body.dark-theme heading {
+    background-color: #424242;
+    color: #fff;
+    border-color: #424242;
+}
+
+body.dark-theme a:hover {
+    color: #d176e1;
+    background-color: #303030;
+}
+
+body.dark-theme .card {
+    background-color: #424242;
+}
+
+body.dark-theme .card-title {
+    color: #d176e1;
+}
+
+body.dark-theme .btn {
+    background-color: #D166e1;
+    color: #fff;
+}
+
+body.dark-theme .btn:hover {
+    background-color: #7d4787;
+    color: #fff;
+}
+
+body.dark-theme .input {
+    border-color: #303030;
+}
+
+/*more css styles from web-330-assign1*/
