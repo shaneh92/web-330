@@ -1,0 +1,53 @@
+<!--
+=================================================================================================================
+; Title: index.html
+; Author: Professor Krasso
+; Modified by: Shane Hingtgen
+; Bellevue University
+; Date: 01/02/23
+; Description: This is index to create our landing page for the repository on GitHub.
+; Work Cited:
+    Web 330 HTML, CSS, and JavaScript Requirements
+    Web 300 Assign 1
+    Course GitHub https://github.com/buwebdev/web-330/blob/master/week-0/theme.html - for CDN Stylesheet
+    W3 Schools https://www.w3schools.com/howto/howto_js_toggle_like.asp
+    W3 Schools https://www.w3schools.com/css/css_howto.asp reference for inline CSS
+    W3 Schools https://www.w3schools.com/tags/att_col_span.asp
+    W3 Schools 
+=================================================================================================================
+-->
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>WEB 330 - Enterprise JavaScript II</title>
+
+        <!--Stylesheets required-->
+        <link href="theme.css" type="text/css" rel="stylesheet">
+        <link href="site.css" type="text/css" rel="stylesheet">
+
+         <!-- CDN Stylesheets -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!--Google fonts 'Oswald' from previous class-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body class="light-theme">
+        <div id="container">
+            <i onclick="toggleMode(this)" id="icon-mode" class="fa fa-toggle-off pull-right" style="font-size:28px;"><span id="icon-text"></span></i>
+            <h1>Shane Hingtgen's Landing Page</h1>
+            <h2>WEB 330 Enterprise JavaScript II</h2>
+            <hr>
+            <h3>Weekly Assignments</h3>
+                <ul>
+                    <li>Assignment 2.2</li>
+                    <li>Assignment 3.2</li>
+                    <li>Assignment 4.2</li>
+                    <li>Assignment 5.2</li>
+                    <li>Assignment 6.2</li>
+                    <li>Assignment 7.3</li>
+                    <li>Assignment 9.2</li>
+                </ul>
+        </div>
+    </body>
