@@ -8,6 +8,7 @@
 ; Description: This is the theme.js file required by the Web 330 HTML, CSS, and JavaScript Requirements document, used for the dark and light themes.
 ; Work Cited: 
     Web 330 HTML, CSS, and JavaScript Requirements
+    W3 Schools https://www.w3schools.com/jsref/prop_win_localstorage.asp
 =================================================================================================================
 */
 /*if the user doesn't select a theme it's automatically set to light-theme as default*/
