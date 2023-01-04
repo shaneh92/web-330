@@ -81,7 +81,7 @@
 }
 /*The above content is required from the Web 330 HTML, CSS, and JavaScript requirements document on CSS styles in theme.css section.*/ 
 
-/*Styles for the dark and light themes*/
+/*Styles for the dark and light themes .classList*/
 body.light-theme {
     --text-color: #000;
     --background-color: #fff;
@@ -152,3 +152,4 @@ h2, h3, h4 {
     padding: 10px;
     border: 1px solid var(--heading-border-color);
 }
+
