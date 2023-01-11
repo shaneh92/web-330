@@ -138,7 +138,7 @@ body {
     background: var(--background-color) ;
 }
 
-/*moved return-home from site.css*/
+
 a{
     color: var(--anchor-color);
     text-decoration: none;
@@ -149,6 +149,7 @@ a:hover {
     color: var(--anchor-hover-color);
 }
 
+/*moved return-home from site.css to apply the themes*/
 .return-home {
     color: var(--return-home-color);
     text-decoration: none;
