@@ -27,3 +27,4 @@ function setDefaultTheme()
 function setSelectedTheme() {
     document.body.classList.value = localStorage.getItem("mode") || "light-theme";
 }
+
