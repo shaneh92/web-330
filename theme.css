@@ -124,9 +124,9 @@ body.dark-theme {
     --btn-hover-background-color: #7d4787;
     --btn-hover-color: #fff;
     --input-border-color: #303030;
-    --return-home-color: #fff;;
+    --return-home-color: #fff;
     --return-home-hover: #D176e1;
-    --return-home-visited: #D176e1;
+    --return-home-visited: #fff;
 }
 
 /*styles with the variables*/
