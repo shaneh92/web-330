@@ -126,7 +126,7 @@ body.dark-theme {
     --input-border-color: #303030;
     --return-home-color: #fff;;
     --return-home-hover: #D176e1;
-    --return-home-visited: #d6a800;
+    --return-home-visited: #D176e1;
 }
 
 /*styles with the variables*/
@@ -136,17 +136,23 @@ body {
     background: var(--background-color) ;
 }
 
-a {
+/*moved return-home from site.css*/
+a, .return-home{
     color: var(--anchor-color);
     text-decoration: none;
 }
 
-a:hover {
+a:hover, .return-home:hover {
     background-color: var(--anchor-hover-background-color);
     color: var(--anchor-hover-color);
 }
 
-h1 {
+.return-home:visited {
+    color: var(--return-home-visited);
+}
+
+
+h1  {
     color: var(--heading-color);
     background-color: var(--h1-background-color);
     padding: 10px;
@@ -160,19 +166,3 @@ h2, h3, h4 {
     border: 1px solid var(--heading-border-color);
 }
 
-/* originally from site.css, but wanted the return-home link to be included in the theme*/
-.return-home {
-    color: var(--return-home-color);
-    text-decoration: none;
-    
-}
-
-.return-home:hover {
-    background-color: var(--return-home-hover);
-    color: var(--return-home-color);
-
-}
-
-.return-home:visited {
-    color: var(--return-home-visited);
-}
