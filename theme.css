@@ -23,10 +23,10 @@
 
 .card-title {
     text-align: center;
-    color: #4f3674;
+    color: var(--card-title-color);
     font-weight: 400;
     font-size: 2em;
-    color: var(--card-title-color);
+
 }
 
 .card-content {
@@ -101,6 +101,9 @@ body.light-theme {
     --btn-hover-background-color: #d6a800;
     --btn-hover-color: #4f3674;
     --input-border-color: #ccc;
+    --return-home-color: #4f3674;
+    --return-home-hover: #D6A800;
+    --return-home-visited: #3C275A;
 }
 
 body.dark-theme {
@@ -121,6 +124,9 @@ body.dark-theme {
     --btn-hover-background-color: #7d4787;
     --btn-hover-color: #fff;
     --input-border-color: #303030;
+    --return-home-color: #fff;;
+    --return-home-hover: #D176e1;
+    --return-home-visited: #d6a800;
 }
 
 /*styles with the variables*/
@@ -154,3 +160,19 @@ h2, h3, h4 {
     border: 1px solid var(--heading-border-color);
 }
 
+/* originally from site.css, but wanted the return-home link to be included in the theme*/
+.return-home {
+    color: var(--return-home-color);
+    text-decoration: none;
+    
+}
+
+.return-home:hover {
+    background-color: var(--return-home-hover);
+    color: var(--return-home-color);
+
+}
+
+.return-home:visited {
+    color: var(--return-home-visited);
+}
