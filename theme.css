@@ -104,6 +104,7 @@ body.light-theme {
     --return-home-color: #4f3674;
     --return-home-hover: #D6A800;
     --return-home-visited: #3C275A;
+    --return-home-background-color: #d6a800;;
 }
 
 body.dark-theme {
@@ -127,6 +128,7 @@ body.dark-theme {
     --return-home-color: #fff;
     --return-home-hover: #D176e1;
     --return-home-visited: #fff;
+    --return-home-background-color:#303030 ;
 }
 
 /*styles with the variables*/
@@ -137,15 +139,28 @@ body {
 }
 
 /*moved return-home from site.css*/
-a, .return-home{
+a{
     color: var(--anchor-color);
     text-decoration: none;
 }
 
-a:hover, .return-home:hover {
+a:hover {
     background-color: var(--anchor-hover-background-color);
     color: var(--anchor-hover-color);
 }
+
+.return-home {
+    color: var(--return-home-color);
+    text-decoration: none;
+    
+}
+
+.return-home:hover {
+    background-color: var(--return-home-background-color);
+    color: var(--return-home-hover);
+
+}
+
 
 .return-home:visited {
     color: var(--return-home-visited);
