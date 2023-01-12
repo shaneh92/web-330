@@ -133,26 +133,19 @@
 
             // function to get todays day in us format
             function getTodaysDate() {
-                const todaysDate = new Date();
-                const year = todaysDate.getFullYear();
-                const month = todaysDate.getMonth();
-                const day = todaysDate.getDate();
-
-                const today = new Date(year, month, day).toLocaleDateString("en-US");
+                const today = new Date().toLocaleDateString("en-US");
                 return today;
             }
 
             //length of the phrase
             function getLength(phrase) {
-                const text = phrase;
-                const len = `Phrase Length: ${text.length}`;
+                const len = phrase.length;
                 return len;
             }
 
             // reversing the phrase
             function reverse(phrase) {
-                const newWord = phrase;
-                const splitWord = newWord.split(``);
+                const splitWord = phrase.split(``);
                 const reverseWord = splitWord.reverse(``);
                 const reversedPhrase = reverseWord.join(``);
                 return reversedPhrase;
