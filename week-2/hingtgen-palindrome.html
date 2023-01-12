@@ -43,7 +43,7 @@
             <br>
         <div class="assign-container">
             <h1 class="app-header">Welcome to the Palindrome App!</h1>
-
+            <!--input card-->
             <div class="assign-content">
                 <div class="card">
                     <div class="card-title">Palindrome Checker</div>
@@ -60,10 +60,10 @@
                         </div>
                     </div>
                 </div>
-            <a class='return-home' href="../index.html">Return</a>  
+            <a href="../index.html">Return</a>  
             </div>          
         </div>
-
+        <!--results card-->
         <div class="assign-container">
             <div class="assign-content">
                 <div class="card">
@@ -87,6 +87,7 @@
     
             /*created From theme.js it sets the theme that is chosen */
             setSelectedTheme();
+            
 
             /**
              * Function allows user to switch between light and dark themes
@@ -95,9 +96,9 @@
              */
             function toggleMode(x)
             {
-                let colorTheme = document.body.classList; // get the body's CSS class
-                let iconMode = x.classList; // get the current classes assigned to the triggered button
-    
+
+            let colorTheme = document.body.classList; // get the body's CSS class
+            let iconMode = x.classList; // get the current classes assigned to the triggered button
                 /**
                  * If the current body class is set to the light-theme, update the user's preference to the dark-theme in the browsers
                  * local storage.
