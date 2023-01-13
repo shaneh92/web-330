@@ -31,7 +31,7 @@ function setSelectedTheme() {
 // moved here from html
  /**
          * Function to switch the users selected website theme
-         * @param x (this instance)
+         * @param x (this instance) x changed to instance
          */
 function toggleMode(instance)
 {
