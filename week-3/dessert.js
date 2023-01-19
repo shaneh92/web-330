@@ -1,7 +1,7 @@
 'use-strict'
 import { Product } from "./product.js";
 
-export class Desserts extends Product {
+export class Dessert extends Product {
     constructor(name, price){
         super(name, price);
     }

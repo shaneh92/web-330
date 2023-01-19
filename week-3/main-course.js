@@ -1,5 +1,5 @@
 'use-strict'
-import { Product } from "./product";
+import { Product } from "./product.js";
 
 export class MainCourse extends Product {
     constructor(name, price){
