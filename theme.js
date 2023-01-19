@@ -33,11 +33,11 @@ function setSelectedTheme() {
          * Function to switch the users selected website theme
          * @param x (this instance) x changed to instance
          */
-function toggleMode(instance)
+function toggleMode(x)
 {
 
 let colorTheme = document.body.classList; // get the body's CSS class
-let iconMode = instance.classList; // get the current classes assigned to the triggered button
+let iconMode = x.classList; // get the current classes assigned to the triggered button
     /**
      * If the current body class is set to the light-theme, update the user's preference to the dark-theme in the browsers
      * local storage.
@@ -68,4 +68,6 @@ let iconMode = instance.classList; // get the current classes assigned to the tr
     iconMode.value = `fa ${localStorage.getItem("iconMode")} pull-right`;
     document.getElementById("icon-text").innerHTML = localStorage.getItem("iconText");
 }
+
+// module.exports = {setDefaultTheme, setSelectedTheme, toggleMode};
 //end toggle
