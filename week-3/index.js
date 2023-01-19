@@ -1,6 +1,6 @@
 'use-strict'
-export * from "./appetizer";
-export * from "./beverage";
-export * from "./dessert";
-export * from "./main-course";
-export * from "./bill";
+export * from "./appetizer.js";
+export * from "./beverage.js";
+export * from "./dessert.js";
+export * from "./main-course.js";
+export * from "./bill.js";

@@ -40,3 +40,5 @@ function getTotal() {
         total += parseFloat(dessert.price);
     })
 }
+
+module.exports = { addAppetizer, addBeverage, addDessert, addMainCourse, getTotal};
