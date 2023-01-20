@@ -1,0 +1,12 @@
+.grid-container {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+    grid-gap: 10px;
+    margin-bottom: 10px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+}
