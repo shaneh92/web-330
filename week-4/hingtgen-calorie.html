@@ -1,0 +1,155 @@
+<!--
+=================================================================================================================
+; Title: Assignment 4.2 Calorie app
+; Author: Shane Hingtgen
+; Bellevue University
+; Date: 01/26/23
+; Description: In this assignment we create an app that shows the a table that has the input of the food name and calories, with a keyup function
+; Work Cited:
+    Web 330 HTML, CSS, and JavaScript Requirements
+    Web 330 Assign 4
+    W3 Schools: https://www.w3schools.com/js/js_object_methods.asp
+    W3 Schools: https://www.w3schools.com/js/js_object_properties.asp
+    W3 Schools: https://www.w3schools.com/js/js_object_constructors.asp
+    W3 Schools: https://www.w3schools.com/js/js_objects.asp
+    W3 Schools: https://www.w3schools.com/jsref/jsref_tolowercase.asp
+    W3 Schools: https://www.w3schools.com/jsref/jsref_filter.asp
+    mdn web docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+    mdn web docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
+    mdn web docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static
+    mdn web docs: https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+    mdn web docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
+=================================================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WEB 330 - Enterprise JavaScript II</title>
+
+    <!--Stylesheets required-->
+    <link href="../theme.css" type="text/css" rel="stylesheet" />
+    <link href="../site.css" type="text/css" rel="stylesheet" />
+    <link href="hingtgen-calorie.css" type="text/css" rel="stylesheet" />
+
+    <!-- CDN Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!--Google fonts 'Oswald' from previous class-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Added scripts from Web 330 HTML, CSS and JavaScript Requirements document-->
+    <script type="application/javascript" src="../theme.js"></script>
+  </head>
+  <body class="light-theme">
+    <i
+      onclick="toggleMode(this)"
+      id="icon-mode"
+      class="fa fa-toggle-off pull-right"
+      style="font-size: 28px"
+      ><span id="icon-text"></span
+    ></i>
+    <!--a toggle button to select from light and dark themes-->
+    <br />
+    <div class="assign-container">
+      <h1 class="app-header">Welcome to the Calorie App!</h1>
+      <div class="assign-content">
+        <div class="card">
+          <div class="card-title">Calorie Search Form</div>
+          <div class="card-content">
+            <!-- Form input -->
+            <div class="form">
+              <div class="form-field">
+                <label for="txtFoodItem">Enter a food item:</label>
+                <input
+                  type="text"
+                  class="input"
+                  id="txtFoodItem"
+                  name="txtFoodItem"
+                />
+                <br />
+                <span id="foodList"></span>
+              </div>
+              <!-- button -->
+              <div class="form-field">
+                <button class="btn btn-primary full-width" id="btnSearch">
+                  Search
+                </button>
+                <p id="test"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="../index.html">Return</a>
+      </div>
+      <!-- Results card -->
+      <div class="assign-container">
+        <div class="assign-content">
+          <div class="card">
+            <div class="card-title">Search Results</div>
+            <div class="card-content assign-results-text" id="searchResults">
+              <!-- table for input -->
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Calories</th>
+                </tr>
+                <tr></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="module">
+    "use-strict";
+    /**
+     * Set the default theme to light if one has not been set in the browsers localStorage
+     */
+    setDefaultTheme();
+
+    /*created From theme.js it sets the theme that is chosen */
+    setSelectedTheme();
+
+    import { CalorieConverter } from "./calorie-converter.js"; //importing our converter file
+
+    let txtFoodItemE1 = document.getElementById("txtFoodItem");
+
+    //onclick function to display name and calories of food item
+    const click = (document.getElementById("btnSearch").onclick = function () {
+      //gave function a name to be used for the keyup event listener
+      const txtFoodItem = document.getElementById("txtFoodItem").value;
+      const foods = CalorieConverter.find(txtFoodItem); //finds the correct name based on what is input
+      let tableData = `<table class="table"><th>Name</th><th>Calories</th>`; //assigns the variable to this table class
+      for (let food of foods) {
+        tableData += `<tr class="table-hover"><td>${food.name}</td><td>${food.calories}</td>`; //adds the variables to the correct rows
+        document.getElementById("searchResults").innerHTML = tableData; //displays the data to the id searchResults card
+      }
+    });
+
+    //event listener key up enter, lets you use enter key instead of clicking button
+    document.addEventListener("keyup", (e) => {
+      if (e.key == "Enter") {
+        //allows for all keys with the word "Enter", even the numpad enter
+        click();
+      }
+    });
+
+    //Displays the food name examples below the form
+    const foodList = CalorieConverter.data; //invokes the objects
+    let foodListData = `<i>(EX:`; //To start my variable with this string
+    for (let food of foodList) {
+      foodListData += ` ${food.name}` + ","; //to add all the food names
+      let data = foodListData.slice(0, -1); //Slice that last comma
+      document.getElementById("foodList").innerHTML = data + ")</i>"; //displays it in the span id, ends the variable with )
+    }
+  </script>
+</html>
