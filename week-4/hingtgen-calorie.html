@@ -69,11 +69,13 @@
               <div class="form-field">
                 <label for="txtFoodItem">Enter a food item:</label>
                 <input
+                  onfocus="this.value=''"
                   type="text"
                   class="input"
                   id="txtFoodItem"
                   name="txtFoodItem"
                 />
+                <!--added onfocus="this.value=''" to clear the form on mouse select-->
                 <br />
                 <span id="foodList"></span>
               </div>
@@ -123,11 +125,19 @@
 
     let txtFoodItemE1 = document.getElementById("txtFoodItem");
 
+    //This function converts the first letter to a capital
+    function capFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     //onclick function to display name and calories of food item
     const click = (document.getElementById("btnSearch").onclick = function () {
+      let foodConverter; //used to store the user input so that we can convert to lowercase
       //gave function a name to be used for the keyup event listener
       const txtFoodItem = document.getElementById("txtFoodItem").value;
-      const foods = CalorieConverter.find(txtFoodItem); //finds the correct name based on what is input
+      foodConverter = txtFoodItem.toLowerCase(); //converts input to lowercase
+      let foods = CalorieConverter.find(capFirstLetter(foodConverter)); //finds the correct name based on what is input
+
       let tableData = `<table class="table"><th>Name</th><th>Calories</th>`; //assigns the variable to this table class
       for (let food of foods) {
         tableData += `<tr class="table-hover"><td>${food.name}</td><td>${food.calories}</td>`; //adds the variables to the correct rows

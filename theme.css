@@ -190,7 +190,7 @@ h4 {
 /* Table Styles */
 table {
   border-collapse: collapse;
-  /* width: 100%; removed to match the */
+  /* width: 100%; removed to match the final example */
   margin-bottom: 30px;
 }
 
