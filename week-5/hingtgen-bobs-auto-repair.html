@@ -1,0 +1,162 @@
+<!--
+=================================================================================================================
+; Title: Assignment 5.2 Bobs Automotive Repair Shop
+; Author: Shane Hingtgen
+; Bellevue University
+; Date: 02/1/23
+; Description: In this assignment we create an app that uses generators and iterators, using the data from a selection form to populate a shopping cart and display the total items, click on the cart to display a table of items
+; Work Cited:
+    Web 330 HTML, CSS, and JavaScript Requirements
+    Web 330 Assign 5
+    Web 330 GitHub https://github.com/buwebdev/web-330
+    MDN web docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+    Digital Ocean https://www.digitalocean.com/community/tutorials/understanding-generators-in-javascript
+=================================================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WEB 330 - Enterprise JavaScript II</title>
+
+    <!--Stylesheets required-->
+    <link href="../theme.css" type="text/css" rel="stylesheet" />
+    <link href="../site.css" type="text/css" rel="stylesheet" />
+    <link
+      href="hingtgen-bobs-auto-repair.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+
+    <!-- CDN Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!--Google fonts 'Oswald' from previous class-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Added scripts from Web 330 HTML, CSS and JavaScript Requirements document-->
+    <script type="application/javascript" src="../theme.js"></script>
+
+    <script src="cart-component.js"></script>
+  </head>
+  <body class="light-theme">
+    <i
+      onclick="toggleMode(this)"
+      id="icon-mode"
+      class="fa fa-toggle-off pull-right"
+      style="font-size: 28px"
+      ><span id="icon-text"></span
+    ></i>
+    <!--a toggle button to select from light and dark themes-->
+    <br />
+    <div class="assign-container">
+      <h1 class="app-header">Welcome to Bob's Automotive Repair Shop!</h1>
+        <div class="assign-content">
+            <div class="card">
+                <div class="card-title">Product Listing
+                    <br>
+                    <cart-component></cart-component>
+                </div>
+                <!-- form selection card -->
+                <div class="card-content">
+                    <div class="form">
+                        <div class="form-field">
+                            <label for="txt">Choose a Product:</label>
+                            <select name="productList" id="productList" class="drop-down-menu">
+                                <option value="select">--Select--</option>
+                                <option value="19.99">Oil Change</option>
+                                <option value="18.44">Filter Replacement</option>
+                                <option value="9.99">Wiper Fluid Refill</option>
+
+                            </select>
+
+                        </div>
+                        <!-- message about our cart icon -->
+                        <i id="cart-message">To view your shopping card click on the cart icon</i>
+                        <!-- button -->
+                        <div class="form-field">
+                            <button class="btn btn-primary full-width" id="btnAddProduct">Add to Cart</button>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            <a class='return-home' href="../index.html">Return</a>
+        </div>
+      </div>
+    </div>
+    <div class="assign-container">
+        <!-- displays what is in our cart -->
+        <div class="assign-content">
+            <div class="card">
+                <div class="card-title">Shopping Cart</div>
+                <div class="card-content" id="shoppingCart">
+                    <!-- table for input -->
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                            <tr></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script type="module">
+    "use-strict";
+        /**
+     * Set the default theme to light if one has not been set in the browsers localStorage
+     */
+     setDefaultTheme();
+
+    /*created From theme.js it sets the theme that is chosen */
+    setSelectedTheme();
+
+    //imports of both files
+    import { Product } from "./product.js";
+    import { ShoppingCart } from "./shopping-cart.js";
+
+    let shoppingCart = new ShoppingCart(); //instantiating the object
+
+
+    setCartCount();
+
+    //button to add the selections to the cart
+    document.getElementById("btnAddProduct").onclick = function() {
+        const productList = document.getElementById("productList");
+        const product = productList.options[productList.selectedIndex].text;
+        const productValue = productList.options[productList.selectedIndex].value;
+        if (product !== "--Select--") { //if product is not select then it will add that specific item selected to our cart
+            shoppingCart.add(new Product(product, productValue));
+            setCartCount();
+            alert(`${product} was added to the shopping cart!`); //provides a message to acknowledge it is now added to our cart
+            document.getElementById("productList").value = 'select';
+        }
+    }
+    
+    //clicking the cart icon will display the cart below the button
+    document.getElementById("cartIcon").onclick = function() {
+        let cartDisplayTable =  `<table class="table"><th>ID</th><th>Name</th><th>Price</th>`;
+            for(let product of shoppingCart) {
+                cartDisplayTable += `<tr class="table-hover"><td>${product.id}</td><td>${product.name}</td><td>${product.price}</td>`;
+            }
+        document.getElementById("shoppingCart").innerHTML = cartDisplayTable;
+        }
+    
+    //this function will display the amount of items in the cart next to the cart icon
+    function setCartCount() {
+        let countCart = shoppingCart.count();
+        document.getElementById("cart-count").innerHTML = countCart
+    }
+
+  </script>
+</html>
