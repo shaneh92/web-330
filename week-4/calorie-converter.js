@@ -37,8 +37,8 @@ export class CalorieConverter extends FoodModel {
 
   //method, finds the correct name
   static find(name) {
-    return CalorieConverter.data.filter((CalorieConverter) =>
-      CalorieConverter.name.includes(name)
+    return CalorieConverter.data.filter(
+      (CalorieConverter) => CalorieConverter.name.includes(name) //fixed to includes instead of ===
     );
   }
 }
