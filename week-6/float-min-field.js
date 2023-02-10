@@ -7,16 +7,25 @@ export class FloatMinField {
   }
 
   validate() {
-    if (!isNaN(field)) {
-      if (this.field > this.min) {
-        return parseFloat(value);
-      }
+    let value = parseFloat(this.field);
+    if (value > this.min) {
+      return true;
     } else {
       return false;
     }
   }
 
+  // validate() {
+  //   if (!isNaN(field)) {
+  //     if (this.field > this.min) {
+  //       return parseFloat(value);
+  //     }
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   getMessage() {
-    return "<name> must be more than <min>. You entered <field>";
+    return `${this.name} must be more than ${this.min}. You entered ${this.field}`;
   }
 }

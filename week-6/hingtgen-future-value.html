@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <title>WEB 330 - Enterprise JavaScript II</title>
-
     <!--Stylesheets required-->
     <link href="../theme.css" type="text/css" rel="stylesheet" />
     <link href="../site.css" type="text/css" rel="stylesheet" />
     <link href="hingtgen-future-value.css" type="text/css" rel="stylesheet"/>
-
-    <link href="https://raw.githubusercontent.com/shaneh92/web-330/main/week-6/flex-layout.css" type="text/css" rel="stylesheet"/>
+    <link href="flex-layout.css" type="text/css" rel="stylesheet"/>
+    <!-- <link href="https://raw.githubusercontent.com/shaneh92/web-330/main/week-6/flex-layout.css" type="text/css" rel="stylesheet"/> -->
 
     <!-- CDN Stylesheets -->
     <link
@@ -32,98 +31,62 @@
         <br>
         <div class="assign-container">
             <h1 class="app-header">Welcome to the Future Value App!</h1>
-          <div class="assign-content">
-            <div class="container">
-                <div class="card">
-                    <div class="card-content">
+            <div class="assign-content">
+                <div class="container">
+                    <div class="card">
                         <div class="card-title">Future Value Calculator</div>
-                        <div class="row">
-                            <div class="col-12 danger" id="errorLog"></div>
-                        </div>
-                        <!-- <div class="row"> -->
-                        <div class="form">
-                            <div class="form-field">
-                                <label class="col-5" for="txtMonthlyPayment">Monthly Payment:</label>
-                                <input type="text" class="input col-7" id="txtMonthlyPayment" name="txtMonthlyPayment"/>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col-12 danger" id="errorLog"></div>  
                             </div>
-                        </div>
-                        <!-- </div> -->
-                    <!-- </div> -->
-                    <!-- <div class="row"> -->
-                        <div class="form">
-                            <div class="form-field">
-                                <label class="col-5" for="txtInterestRate">Interest Rate:</label>
-                                <input type="text" class="input col-7" id="txtInterestRate" name="txtInterestRate"/>
+                            <div class="form">
+                                <div class="form-field">
+                                    <div class="row">
+                                            <label class="col-5 form-label" for="txtMonthlyPayment">Monthly Payment:</label>
+                                            <input type="text" class="input col-7" id="txtMonthlyPayment" name="txtMonthlyPayment"/>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-5 form-label" for="txtYearlyRate">Interest Rate:</label>
+                                            <input type="text" class="input col-7" id="txtYearlyRate" name="txtYearlyRate"/>
+                                        </div>
+                                        <div class="row">
+                                            <i class="danger col-7">Enter 11% as 11.1:</i>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-5 form-label" for="listNumOfYears">Number of Years:</label>
+                                            <select name="listNumOfYears " id="listNumOfYears" class="drop-down-menu col-7">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-field">
+                                            <button class="btn btn-primary full-width" id="btnCalculate">Calculate</button>
+                                        </div>
+                                </div>
                             </div>
-                            <i class="danger">Enter 11% as 11.1:</i>
-                        </div>
-                    <!-- </div>
-                    <div class="row"> -->
-                        <div class="form">
-                            <div class="form-field">
-                                <label class="col-5" for="txtInterestRate">Number of Years:</label>
-                                <select name="listNumOfYears " id="listNumOfYears" class="drop-down-menu col-7">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-
-                                </select>
-                            </div>
-                            <div class="form-field">
-                                <button class="btn btn-primary full-width" id="btnCalculate">Calculate</button>
-                            </div>
-                        </div>
                         </div>
                     </div>
                     <a class='return-home' href="../index.html">Return</a>
-                </div>
-
                 </div>
             </div>
             <div class="assign-container">
                 <div class="assign-content">
                     <div class="card">
-                        <div class="card-title">Calculation as of<span id="today"></span></div>
+                        <div class="card-title">Calculation as of <span id="today"></span></div>
                         <div class="card-content" id="futureValue"> 
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-              <!-- <div class="row">
-                <div class="col-5">
-                    <div class="form">
-                        <div class="form-field">
-                            <label for="txtInterestRate">Number of Years:</label>
-                            </div>
-                            </div>
-                            <div class="col-7">
-                                <select name="listNumOfYears " id="listNumOfYears" class="drop-down-menu">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
+        </div>
     <script type="module">
         "use-strict";
         /**
@@ -135,12 +98,61 @@
         setSelectedTheme();
     
         import { FinanceCalculator } from "./finance-calculator.js";
-        import { validator } from "./validator.js";
+        import { Validator } from "./validator.js";
     
         document.getElementById("today").innerHTML = new Date().toLocaleDateString("en-US");
     
         document.getElementById("btnCalculate").onclick = function() {
-    
+            const monthlyPayment = document.getElementById('txtMonthlyPayment').value;
+            const rate = document.getElementById('txtYearlyRate').value;
+            const years = document.getElementById('listNumOfYears').value;
+            const errorLogE1 = document.getElementById('errorLog');
+
+            let monthlyPaymentValidator = new Validator("Monthly Payment", monthlyPayment);
+
+            monthlyPaymentValidator.addRequiredField();
+            monthlyPaymentValidator.addRequiredFloatField();
+            monthlyPaymentValidator.addFloatMinField(100);
+
+            let rateValidator = new Validator("Interest Rate", rate);
+
+            rateValidator.addRequiredField();
+            rateValidator.addRequiredFloatField();
+            rateValidator.addFloatMaxField(100);
+
+
+
+
+            const errorLog = [];
+
+            if(!monthlyPaymentValidator.validate()) {
+                for (let msg of monthlyPaymentValidator.messages) {
+                    errorLog.push(msg);
+                }
+            }
+            
+            if(!rateValidator.validate()) {
+                for (let msg of rateValidator.messages) {
+                    errorLog.push(msg);
+                }
+            }
+
+
+            //This if statement clears current error log, and displays a new error message
+            if(monthlyPaymentValidator.validate() && rateValidator.validate() === true) {
+                errorLogE1.innerHTML = '';
+                let futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment, rate, years)
+                document.getElementById('futureValue').innerHTML = 'The future value is '+ FinanceCalculator.convertToCurrency(futureValue);
+            } else if (monthlyPaymentValidator.validate() === true && rateValidator.validate() === false) {
+                errorLogE1.innerHTML = '';
+                let errorLogMessage = "<ul>"
+                for (let message of errorLog) {
+                    errorLogMessage += `<li>${message}</li></ul></ul>`
+
+                }
+                document.getElementById("errorLog").innerHTML = errorLogMessage;
+            }
+
         }
         </script>
   </body>

@@ -1,11 +1,11 @@
 "use-strict";
 
-import { RequiredField } from "./required-field";
-import { FloatField } from "./float-field";
-import { FloatMinField } from "./float-min-field";
-import { FloatMaxField } from "./float-max-field";
+import { RequiredField } from "./required-field.js";
+import { FloatField } from "./float-field.js";
+import { FloatMinField } from "./float-min-field.js";
+import { FloatMaxField } from "./float-max-field.js";
 
-class Validator {
+export class Validator {
   validators = [];
   messages = [];
 
@@ -32,8 +32,9 @@ class Validator {
 
   validate() {
     for (let i of this.validators) {
-      if (false) {
-        this.validators.push(getMessage(i));
+      if (i.validate() === false) {
+        this.messages.push(i.getMessage());
+        return false;
       }
     }
     return true;

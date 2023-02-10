@@ -5,18 +5,28 @@ export class FloatMaxField {
     this.field = field;
     this.max = max;
   }
-  // needs work, what is the max parameter???
+
   validate() {
-    if (!isNaN(field)) {
-      if (this.field < this.max) {
-        return parseFloat(field);
-      }
+    let value = parseFloat(this.field);
+    if (value < this.max) {
+      return true;
     } else {
       return false;
     }
   }
 
+  // needs work, what is the max parameter???
+  // validate() {
+  //   if (!isNaN(field)) {
+  //     if (this.field < this.max) {
+  //       return parseFloat(field);
+  //     }
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   getMessage() {
-    return "<name> must be less than <max>. You entered <field>";
+    return `${this.name} must be less than ${this.max}. You entered ${this.field}`;
   }
 }
