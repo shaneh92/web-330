@@ -102,29 +102,37 @@
     
         document.getElementById("today").innerHTML = new Date().toLocaleDateString("en-US");
     
+        //onclick event for our button
         document.getElementById("btnCalculate").onclick = function() {
+
+            //setting our DOM
             const monthlyPayment = document.getElementById('txtMonthlyPayment').value;
             const rate = document.getElementById('txtYearlyRate').value;
             const years = document.getElementById('listNumOfYears').value;
             const errorLogE1 = document.getElementById('errorLog');
 
+            //instantiating a new validator class 
             let monthlyPaymentValidator = new Validator("Monthly Payment", monthlyPayment);
 
+            // calling the functions on our validator
             monthlyPaymentValidator.addRequiredField();
             monthlyPaymentValidator.addRequiredFloatField();
             monthlyPaymentValidator.addFloatMinField(100);
 
+            //instantiating a new validator class 
             let rateValidator = new Validator("Interest Rate", rate);
 
+            // calling the functions on our validator
             rateValidator.addRequiredField();
             rateValidator.addRequiredFloatField();
             rateValidator.addFloatMaxField(100);
 
 
 
-
+            // empty array for errorLog
             const errorLog = [];
 
+            // This if statement pushes our error messages that we validated on our float JS' docs
             if(!monthlyPaymentValidator.validate()) {
                 for (let msg of monthlyPaymentValidator.messages) {
                     errorLog.push(msg);

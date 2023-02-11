@@ -1,5 +1,6 @@
 "use-strict";
 
+//allows us to calculate our values with interest over a length of time
 export class FinanceCalculator {
   static MONTHS_IN_YEAR = 12;
   static calculateFutureValue(monthlyPayment, rate, years) {

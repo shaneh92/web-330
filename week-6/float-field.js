@@ -15,39 +15,8 @@ export class FloatField {
     }
   }
 
-  // validate() {
-  //   if (isNaN(this.field) === true) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-  // validate() {
-  //   if (isNaN(this.field) === true) {
-  //     if (value > this.min) {
-  //       return false;
-  //     }
-  //   } else {
-  //     return true;
-  //   }
-  // }
-  //   Needs work,
-  // validate() {
-  //   if (!isNaN(value)) {
-  //     return parseFloat(value);
-  //   } else {
-  //     return false;
-  //   }
-  // }
-  // validate() {
-  //   if (parseFloat(value) === true) {
-  //     return true;
-  //   } else if (parseFloat(value) === false) {
-  //   }
-  // }
-
+  //structures the message
   getMessage() {
-    return "<name> must be a float value. You entered <field>";
+    return `${this.name} must be a float value. You entered ${this.field}`;
   }
 }

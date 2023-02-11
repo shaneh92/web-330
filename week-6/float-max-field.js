@@ -6,26 +6,18 @@ export class FloatMaxField {
     this.max = max;
   }
 
+  //checks if the parameters are correct
   validate() {
     let value = parseFloat(this.field);
     if (value < this.max) {
+      //if the value is bigger than max it will throw a message based on boolean values
       return true;
     } else {
       return false;
     }
   }
 
-  // needs work, what is the max parameter???
-  // validate() {
-  //   if (!isNaN(field)) {
-  //     if (this.field < this.max) {
-  //       return parseFloat(field);
-  //     }
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
+  // structures the message
   getMessage() {
     return `${this.name} must be less than ${this.max}. You entered ${this.field}`;
   }

@@ -6,6 +6,7 @@ export class FloatMinField {
     this.min = min;
   }
 
+  //checks if the parameters are correct
   validate() {
     let value = parseFloat(this.field);
     if (value > this.min) {
@@ -15,16 +16,7 @@ export class FloatMinField {
     }
   }
 
-  // validate() {
-  //   if (!isNaN(field)) {
-  //     if (this.field > this.min) {
-  //       return parseFloat(value);
-  //     }
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
+  // structures the message
   getMessage() {
     return `${this.name} must be more than ${this.min}. You entered ${this.field}`;
   }

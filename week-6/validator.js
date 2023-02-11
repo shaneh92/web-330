@@ -30,6 +30,7 @@ export class Validator {
     this.validators.push(new FloatMaxField(this.name, this.field, max));
   }
 
+  //allows a message to be pushed if its not within parameters of min/max
   validate() {
     for (let i of this.validators) {
       if (i.validate() === false) {
