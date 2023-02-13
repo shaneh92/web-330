@@ -3,7 +3,7 @@
 ; Title: Assignment 6.2 Future Value Calculator
 ; Author: Shane Hingtgen
 ; Bellevue University
-; Date: 02/1/23
+; Date: 02/10/23
 ; Description: We created a calculator that calculates a total with interest of years
 ; Work Cited:
     Web 330 HTML, CSS, and JavaScript Requirements
@@ -11,6 +11,7 @@
 =================================================================================================================
 */
 
+/* This is for the info interest and the error messages */
 .danger {
   float: right;
   color: #df546a;
@@ -23,6 +24,7 @@
   padding-top: 1rem;
 }
 
+/* This is for the futurevalue when you hit submit */
 #futureValue {
   text-align: center;
   font-weight: 300;
