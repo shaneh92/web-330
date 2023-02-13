@@ -21,8 +21,7 @@ export class FloatMinField {
 
   //checks if the parameters are correct
   validate() {
-    let value = parseFloat(this.field);
-    if (value > this.min) {
+    if (parseFloat(this.field) > this.min) {
       return true;
     } else {
       return false;

@@ -159,23 +159,26 @@
                 }
             }
 
-
             //This if statement clears current error log, and displays a new error message
             if(monthlyPaymentValidator.validate() && rateValidator.validate() === true) {
                 errorLogE1.innerHTML = '';
                 let futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment, rate, years)
                 document.getElementById('futureValue').innerHTML = 'The future value is '+ FinanceCalculator.convertToCurrency(futureValue);
-            } else if (monthlyPaymentValidator.validate() === true && rateValidator.validate() === false) {
+            } else if (monthlyPaymentValidator.validate() === false && rateValidator.validate() === false) {
                 errorLogE1.innerHTML = '';
                 let errorLogMessage = "<ul>"
-                for (let message of errorLog) {
-                    errorLogMessage += `<li>${message}</li></ul></ul>`
+                for (let msg of errorLog) {
+                    errorLogMessage += `<li>${msg}</li>`
 
                 }
+                errorLogMessage += `</ul>`
                 document.getElementById("errorLog").innerHTML = errorLogMessage;
             }
-
+            console.log(monthlyPaymentValidator.validate());
+            console.log(rateValidator.validate());
         }
+
+
         </script>
   </body>
 </html>

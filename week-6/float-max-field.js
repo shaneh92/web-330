@@ -21,8 +21,7 @@ export class FloatMaxField {
 
   //checks if the parameters are correct
   validate() {
-    let value = parseFloat(this.field);
-    if (value < this.max) {
+    if (parseFloat(this.field) < this.max) {
       //if the value is bigger than max it will throw a message based on boolean values
       return true;
     } else {

@@ -10,6 +10,6 @@ export class RequiredField {
   }
 
   getMessage() {
-    return "<name> is a required field.";
+    return `${this.name} is a required field.`;
   }
 }
