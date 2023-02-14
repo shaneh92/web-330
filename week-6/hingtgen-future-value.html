@@ -164,7 +164,8 @@
                 errorLogE1.innerHTML = '';
                 let futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment, rate, years)
                 document.getElementById('futureValue').innerHTML = 'The future value is '+ FinanceCalculator.convertToCurrency(futureValue);
-            } else if (monthlyPaymentValidator.validate() === false && rateValidator.validate() === false) {
+            } else {
+                // was else if, changed to
                 errorLogE1.innerHTML = '';
                 let errorLogMessage = "<ul>"
                 for (let msg of errorLog) {
