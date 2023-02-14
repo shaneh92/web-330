@@ -165,7 +165,7 @@
                 let futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment, rate, years)
                 document.getElementById('futureValue').innerHTML = 'The future value is '+ FinanceCalculator.convertToCurrency(futureValue);
             } else {
-                // was else if, changed to
+                // was else if, changed to else
                 errorLogE1.innerHTML = '';
                 let errorLogMessage = "<ul>"
                 for (let msg of errorLog) {
