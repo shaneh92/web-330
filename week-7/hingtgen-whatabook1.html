@@ -1,12 +1,21 @@
+<!--
+=================================================================================================================
+; Title: Assignment 7.2 WhatABook Part 1
+; Author: Shane Hingtgen
+; Bellevue University
+; Date: 02/1/23
+; Description: In this assignment we learn to create an XML document
+; Work Cited:
+    Web 330 HTML, CSS, and JavaScript Requirements
+    Web 330 Assign 6
+=================================================================================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
     <title>WEB 330 - Enterprise JavaScript II</title>
     <!--Stylesheets required-->
     <link href="../theme.css" type="text/css" rel="stylesheet" />
     <link href="../site.css" type="text/css" rel="stylesheet" />
-    <link href="hingtgen-future-value.css" type="text/css" rel="stylesheet"/>
-    <link href="flex-layout.css" type="text/css" rel="stylesheet"/>
-    <!-- <link href="https://raw.githubusercontent.com/shaneh92/web-330/main/week-6/flex-layout.css" type="text/css" rel="stylesheet"/> -->
 
     <!-- CDN Stylesheets -->
     <link
@@ -25,5 +34,157 @@
         <!--Added scripts from Web 330 HTML, CSS and JavaScript Requirements document-->
         <script type="application/javascript" src="../theme.js"></script>
   </head>
-  <body></body>
+  <body>
+    <i onclick="toggleMode(this)" id="icon-mode" class="fa fa-toggle-off pull-right" style="font-size:28px;"><span id="icon-text"></span></i> <!--a toggle button to select from light and dark themes-->
+    <br>
+    <div class="assign-container">
+      <h1 class="app-header">Welcome to the WhatABook, Part 1 
+          App! 
+      </h1>
+      <div class="assign-content">
+        <div class="container">
+          <div class="card">
+            <div class="card-title">Book Listing</div>
+            <div class="card-content" id="bookList">
+              <table id="bookList"></table>
+              <!-- <table>
+                <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Pages</th>
+                <th>Authors</th>
+                </tr>
+                <tr>
+                  <td>9780345339683</td>
+                  <td>The Hobbit or There and Back Again</td>
+                  <td>N/A</td>
+                  <td>287</td>
+                  <td>J.R.R. Tolkien</td>
+                </tr>
+                <tr>
+                  <td>9780261103573</td>
+                  <td>The Fellowship of the Ring</td>
+                  <td>Being the First Part of the Lord of the Rings</td>
+                  <td>416</td>
+                  <td>J.R.R. Tolkien</td>
+                </tr>
+                <tr>
+                  <td>9780261102361</td>
+                  <td>The Two Towers</td>
+                  <td>Being the Second Part of the Lord of the Rings</td>
+                  <td>442</td>
+                  <td>J.R.R. Tolkien</td>
+                </tr>
+                <tr>
+                  <td>9780261102378</td>
+                  <td>The Return of the King</td>
+                  <td>Being the Third part of the Lord of the Ring</td>
+                  <td>556</td>
+                  <td>J.R.R. Tolkien</td>
+                </tr>
+                <tr>
+                  <td>9780593099332</td>
+                  <td>Dune: Deluxe Edition</td>
+                  <td>N/A</td>
+                  <td>688</td>
+                  <td>Frank Herbert</td>
+                </tr>
+                <tr>
+                  <td>9780316769532</td>
+                  <td>The Catcher and the Rye</td>
+                  <td>N/A</td>
+                  <td>277</td>
+                  <td>J.D. Salinger</td>
+                </tr>
+              </table> -->
+            </div>
+          </div>
+          <a class='return-home' href="../index.html">Return</a>
+        </div>
+      </div>
+    </div>
+    <div class="assign-container">
+      <div class="assign-content">
+          <div class="card">
+              <!-- where the total is added with todays date -->
+              <div class="card-title">Selected Book</div>
+              <div class="card-content" id="selectedBook"> 
+              </div>
+          </div>
+      </div>
+  </div>
+    <script type="module">
+        "use-strict";
+        /**
+         * Set the default theme to light if one has not been set in the browsers localStorage
+         */
+        setDefaultTheme();
+    
+        /*created From theme.js it sets the theme that is chosen */
+        setSelectedTheme();
+
+        // addEventListener('DOMContentLoaded', (onClick) => {
+      // document.getElementById('DOMContentLoaded').onclick = function() {
+      document.addEventListener('DOMContentLoaded', function() {
+        let fileName = 'books.xml';
+
+        fetch(fileName)
+        .then(res => res.text())
+        .then(data => {
+          // console.log('Success:', data);
+          let domParser = new DOMParser();
+          // console.log(domParser);
+          let xmlBooks = domParser.parseFromString(fileName, 'text/xml');
+          // console.log(xmlBooks);
+          loadBooks(xmlBooks);
+          addIsbnClickEvents();
+        });
+      });
+
+      function loadBooks(xml) {
+        let books = xml.getElementsByTagName('book');
+        console.log(books);
+        let tableData = `<table id='bookTable' class='table'><tr><th>ISBN</th><th>title</th><th>Description</th><th>pages</th><th>authors</th></tr>`
+        for(let book of books) {
+          let isbn = book.getElementByTagName('isbn')[0].childNodes[0].nodeValue;
+          let title = book.getElementByTagName('title')[0].childNodes[0].nodeValue;
+          let description = book.getElementByTagName('description')[0].childNodes[0].nodeValue;
+          let pages = book.getElementByTagName('pages')[0].childNodes[0].nodeValue;
+          let authors = book.getElementByTagName('authors')[0].childNodes[0].nodeValue;
+          tableData += `<tr><td data-value="ISBN"><a href="#" class="isbn-link">${isbn}</a></td><td> data-value="Title">${title}</td><td>data-value="Description">${description}</td><td data-value="Pages">${pages}</td><td data-value="Authors">${authors}</td></tr>`
+
+        }
+        tableData  += `</table>`
+        document.getElementById("bookList").innerHTML = tableData;
+        console.log(tableData);
+      }
+      
+      function anchorClicked(e) {
+        e.preventDefault();
+
+        let self = this;
+        let cell = self.parentElement;
+        let row = cell.parentElement;
+
+        let data = row.querySelectorAll('td');
+
+        let bookData = `<ul style="list-styletype:none;">`
+        for(let field of book) {
+          bookData += `<li><b>${field.dataset.value}</b></li>`
+        }
+        document.getElementById("selectedBook").innerHTML = bookData;
+      }
+
+      function addIsbnClickEvents() {
+        let viewButtons = document.querySelectorAll('#bookTable tbody .isbn-link') 
+
+
+            // add inside a loop of some sort
+            // viewButtons[index].addEventListener("click", anchorClicked);
+      }
+
+
+    </script>
+  </body>
 </html>
