@@ -8,12 +8,19 @@
 ; Description: In this assignment we learn to create an XML document
 ; Work Cited:
     Web 330 HTML, CSS, and JavaScript Requirements
-    Web 330 Assign 6
+    Web 330 Assign 7
+    W3 Schools https://www.w3schools.com/xml/xml_whatis.asp
+    W3 Schools https://www.w3schools.com/xml/xml_usedfor.asp
+    W3 Schools https://www.w3schools.com/js/js_api_fetch.asp
+    W3 Schools https://www.w3schools.com/xml/xml_parser.asp
+    W3 Schools https://www.w3schools.com/xml/xml_validator.asp
 =================================================================================================================
 -->
-
+<!-- Books parent -->
 <books>
+<!-- book child of Books -->
     <book>
+    <!-- these are child of book -->
         <isbn>9780345339683</isbn>
         <title>The Hobbit or There and Back Again</title>
         <description>N/A</description>
