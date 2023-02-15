@@ -124,6 +124,7 @@
         /*created From theme.js it sets the theme that is chosen */
         setSelectedTheme();
 
+      // when the DOM loads it will also load the books.xml data
       document.addEventListener('DOMContentLoaded', function() {
         let fileName = "books.xml";
 
@@ -137,6 +138,7 @@
         });
       });
 
+      // this function will display our xml information in a table
       function loadBooks(xml) {
         let books = xml.getElementsByTagName('book');
         let tableData = `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
@@ -152,7 +154,7 @@
         document.getElementById("bookList").innerHTML = tableData;
       }
       
-      // console.log(loadBooks());
+      // this function when displays the information based on the xml doc in a list
       function anchorClicked(e) {
         e.preventDefault();
 
@@ -175,6 +177,7 @@
               
       }
 
+      // a function that loops over the viewButtons variable when clicked on one of the isbn's
       function addIsbnClickEvents() {
         let viewButtons = document.querySelectorAll('#bookTable tbody .isbn-link') 
 
