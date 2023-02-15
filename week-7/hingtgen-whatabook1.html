@@ -46,8 +46,8 @@
           <div class="card">
             <div class="card-title">Book Listing</div>
             <div class="card-content" id="bookList">
-              <table id="bookList"></table>
-              <!-- <table>
+              <!-- <table id="bookList"></table> -->
+              <!-- <table id="bookList">
                 <tr>
                 <th>ISBN</th>
                 <th>Title</th>
@@ -124,19 +124,14 @@
         /*created From theme.js it sets the theme that is chosen */
         setSelectedTheme();
 
-        // addEventListener('DOMContentLoaded', (onClick) => {
-      // document.getElementById('DOMContentLoaded').onclick = function() {
       document.addEventListener('DOMContentLoaded', function() {
-        let fileName = 'books.xml';
+        let fileName = "books.xml";
 
         fetch(fileName)
         .then(res => res.text())
         .then(data => {
-          // console.log('Success:', data);
           let domParser = new DOMParser();
-          // console.log(domParser);
-          let xmlBooks = domParser.parseFromString(fileName, 'text/xml');
-          // console.log(xmlBooks);
+          let xmlBooks = domParser.parseFromString(data, 'text/xml');
           loadBooks(xmlBooks);
           addIsbnClickEvents();
         });
@@ -144,22 +139,20 @@
 
       function loadBooks(xml) {
         let books = xml.getElementsByTagName('book');
-        console.log(books);
-        let tableData = `<table id='bookTable' class='table'><tr><th>ISBN</th><th>title</th><th>Description</th><th>pages</th><th>authors</th></tr>`
+        let tableData = `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
         for(let book of books) {
-          let isbn = book.getElementByTagName('isbn')[0].childNodes[0].nodeValue;
-          let title = book.getElementByTagName('title')[0].childNodes[0].nodeValue;
-          let description = book.getElementByTagName('description')[0].childNodes[0].nodeValue;
-          let pages = book.getElementByTagName('pages')[0].childNodes[0].nodeValue;
-          let authors = book.getElementByTagName('authors')[0].childNodes[0].nodeValue;
-          tableData += `<tr><td data-value="ISBN"><a href="#" class="isbn-link">${isbn}</a></td><td> data-value="Title">${title}</td><td>data-value="Description">${description}</td><td data-value="Pages">${pages}</td><td data-value="Authors">${authors}</td></tr>`
-
+          let isbn = book.getElementsByTagName('isbn')[0].childNodes[0].nodeValue;
+          let title = book.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+          let description = book.getElementsByTagName('description')[0].childNodes[0].nodeValue;
+          let pages = book.getElementsByTagName('pages')[0].childNodes[0].nodeValue;
+          let authors = book.getElementsByTagName('authors')[0].childNodes[0].nodeValue;
+          tableData += `<tr><td data-value="ISBN"><a href="#" class="isbn-link">${isbn}</a></td><td data-value="Title">${title}</td><td data-value="Description">${description}</td><td data-value="Pages">${pages}</td><td data-value="Authors">${authors}</td></tr>`;
         }
         tableData  += `</table>`
         document.getElementById("bookList").innerHTML = tableData;
-        console.log(tableData);
       }
       
+      // console.log(loadBooks());
       function anchorClicked(e) {
         e.preventDefault();
 
@@ -169,19 +162,26 @@
 
         let data = row.querySelectorAll('td');
 
-        let bookData = `<ul style="list-styletype:none;">`
-        for(let field of book) {
-          bookData += `<li><b>${field.dataset.value}</b></li>`
+        let bookData = `<ul style="list-style-type:none;">`
+        for(let field of data) {
+          bookData += `<li><b> ${field.dataset.value}: ${field.dataset.value}`;
         }
+        bookData += `</li></ul>`;
+        console.log(self);
+        console.log(cell);
+        console.log(row);
+        console.log(data);
         document.getElementById("selectedBook").innerHTML = bookData;
+              
       }
 
       function addIsbnClickEvents() {
         let viewButtons = document.querySelectorAll('#bookTable tbody .isbn-link') 
 
+        for (let i = 0; i < viewButtons.length; i++){
+          viewButtons[i].addEventListener("click", anchorClicked);
+        }
 
-            // add inside a loop of some sort
-            // viewButtons[index].addEventListener("click", anchorClicked);
       }
 
 
