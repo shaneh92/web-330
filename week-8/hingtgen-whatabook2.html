@@ -123,7 +123,7 @@
           let self = this;
           let isbn = self.innerText;
 
-          newParams = new params();
+          let newParams = new params();
           http.get("https://openlibrary.org/api/books", newParams).then(res => {
             console.log(res);
 
@@ -133,8 +133,10 @@
             console.log('Error:', e);
           }); 
         }
+
+
        function buildHtmlString(res, format) {
-          let tableString =  `<th>''</th>`;
+          let tableString =  `<th></th>`;
           let ulString = '';
           for(let key in res) {
             ulString += `<ul style="list-style-type: none;">`;
