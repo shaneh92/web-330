@@ -1,7 +1,5 @@
 export class HttpClient {
-  async get(url, params) {
-    params = "";
-
+  async get(url, params = "") {
     url = new URL(url);
     params = new URLSearchParams(url.search);
 
