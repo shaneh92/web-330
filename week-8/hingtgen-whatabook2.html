@@ -1,6 +1,6 @@
 <!--
 =================================================================================================================
-; Title: Assignment 7.2 WhatABook Part 2
+; Title: Assignment 8.2 WhatABook Part 2
 ; Author: Shane Hingtgen
 ; Bellevue University
 ; Date: 02/21/23
@@ -84,6 +84,7 @@
         /*created From theme.js it sets the theme that is chosen */
         setSelectedTheme();
         
+        // ---Part Two---
         import {HttpClient} from "./http-client.js";
 
         let http = new HttpClient();
@@ -100,43 +101,47 @@
             '9780590405959'
         ];
 
+        
         const params = {
             "bibkeys": `ISBN: ${isbns.join(',')}`,
             "format": "json",
             "jscmd": "details"
         };
 
+        
         http.get("https://openlibrary.org/api/books", params).then(res => {
           console.log(res);
+          
 
-          document.getElementById('bookListing').innerHTML = buildHtmlString(res, 'table');
-
+          document.getElementById('bookList').innerHTML = buildHtmlString(res, 'table');
+          
           addIsbnClickEvents();
         })
         .catch(e => {
+          
+          console.log('test2');
           console.log(e);
-        })
+        } )
 
         function getBook(e) {
           e.preventDefault();
 
           let self = this;
           let isbn = self.innerText;
-
           let newParams = new params();
+          console.log(newParams);
           http.get("https://openlibrary.org/api/books", newParams).then(res => {
-            console.log(res);
 
             document.getElementById('selectedBook').innerHTML = buildHtmlString(res, 'ul');
+            
           })
-          .catch((e) => {
-            console.log('Error:', e);
+          .catch(e => {
+            console.log(e);
           }); 
         }
 
-
        function buildHtmlString(res, format) {
-          let tableString =  `<th></th>`;
+          let tableString =  `<th>`;
           let ulString = '';
           for(let key in res) {
             ulString += `<ul style="list-style-type: none;">`;
@@ -149,26 +154,26 @@
                 })
               }
               let book = {
-                isbn: res[key].details.isbn_11 + res[key].details.isbn_11 + res[key].details.isbn_10,
+                isbn: res[key].details.isbn_11 || res[key].details.isbn_13 || res[key].details.isbn_10,
                 title: res[key].details.title,
-                description: res[key].details.subtitle + res[key].details.subtitle + "N/A",
-                pages: res[key].details.number_of_pages + res[key].details.number_of_pages + "N/A",
-                authors: authors.join(',')
+                description: res[key].details.subtitle || res[key].details.subtitle || "N/A",
+                pages: res[key].details.number_of_pages || res[key].details.number_of_pages || "N/A",
+                authors: authors ? authors.join(',') : ""
               }
-
-              ulString += `<li><b>ISBN:</b> ${book.isbn}</li><li><b>Title:</b ${book.title}</li><li><b>Description:</b> ${book.description}</li><li><b>Pages:</b> ${book.pages}<li><li><b>Authors:</b> ${book.authors}<li>`;
-              tableString += `<tr><rd><a href="#" class="isbn-link">${book.isbn}</a></td><td>${book.title}</td><td>${book.description}</td><td>${book.pages}</td><td>${book.authors}</td></tr>`;
+              
+              ulString += `<li><b>ISBN:</b> ${book.isbn}</li><li><b>Title:</b ${book.title}</li><li><b>Description:</b> ${book.description}</li><li><b>Pages:</b> ${book.pages}</li><li><b>Authors:</b> ${book.authors}</li>`;
+              tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td><td>${book.title}</td><td>${book.description}</td><td>${book.pages}</td><td>${book.authors}</td></tr>`;
             }
-            if (format === 'table') {
+          }
+          tableString = `</th>`
+          if (format === 'table') {
               return tableString;
             } else {
               return ulString
             }
-          }
-
         };
 
-
+      // ---Part One---
      // when the DOM loads it will also load the books.xml data
      document.addEventListener('DOMContentLoaded', function() {
         let fileName = "../week-7/books.xml"; 
