@@ -103,23 +103,19 @@
 
         
         const params = {
-            "bibkeys": `ISBN: ${isbns.join(',')}`,
+            "bibkeys": `ISBN: ${isbns.join(",")}`,
             "format": "json",
             "jscmd": "details"
         };
 
-        
         http.get("https://openlibrary.org/api/books", params).then(res => {
           console.log(res);
-          
 
           document.getElementById('bookList').innerHTML = buildHtmlString(res, 'table');
           
           addIsbnClickEvents();
         })
         .catch(e => {
-          
-          console.log('test2');
           console.log(e);
         } )
 
@@ -130,7 +126,7 @@
           let isbn = self.innerText;
           let newParams = new params();
           console.log(newParams);
-          http.get("https://openlibrary.org/api/books", newParams).then(res => {
+          http.get("https://openlibrary.org/api/books", newParams).then(() => {
 
             document.getElementById('selectedBook').innerHTML = buildHtmlString(res, 'ul');
             
@@ -141,15 +137,18 @@
         }
 
        function buildHtmlString(res, format) {
-          let tableString =  `<th>`;
+          let tableString =  `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
+            // console.log(tableString);
           let ulString = '';
+            // console.log(ulString);
           for(let key in res) {
             ulString += `<ul style="list-style-type: none;">`;
-
+              // console.log(ulString);
             if (res.hasOwnProperty(key)){
               let authors = [];
               if (res[key].details.authors){
                 authors = res[key].details.authors.map(function(author) {
+                  // console.log(author.name);
                   return author.name;
                 })
               }
@@ -160,12 +159,16 @@
                 pages: res[key].details.number_of_pages || res[key].details.number_of_pages || "N/A",
                 authors: authors ? authors.join(',') : ""
               }
+              // console.log(book);
               
               ulString += `<li><b>ISBN:</b> ${book.isbn}</li><li><b>Title:</b ${book.title}</li><li><b>Description:</b> ${book.description}</li><li><b>Pages:</b> ${book.pages}</li><li><b>Authors:</b> ${book.authors}</li>`;
+              // console.log(ulString);
               tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td><td>${book.title}</td><td>${book.description}</td><td>${book.pages}</td><td>${book.authors}</td></tr>`;
             }
           }
-          tableString = `</th>`
+          tableString = `</table>`
+          // console.log(tableString);
+          // console.log(format);
           if (format === 'table') {
               return tableString;
             } else {
