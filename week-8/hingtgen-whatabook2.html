@@ -49,7 +49,7 @@
     <i onclick="toggleMode(this)" id="icon-mode" class="fa fa-toggle-off pull-right" style="font-size:28px;"><span id="icon-text"></span></i> <!--a toggle button to select from light and dark themes-->
     <br>
     <div class="assign-container">
-      <h1 class="app-header">Welcome to the WhatABook, Part 1 
+      <h1 class="app-header">Welcome to the WhatABook, Part 2 
           App! 
       </h1>
       <div class="assign-content">
@@ -74,193 +74,193 @@
           </div>
       </div>
   </div>
-    <script type="module">
-        "use-strict";
-        /**
-         * Set the default theme to light if one has not been set in the browsers localStorage
-         */
-        setDefaultTheme();
+  <script type="module">
+    "use-strict";
+    /**
+     * Set the default theme to light if one has not been set in the browsers localStorage
+     */
+    setDefaultTheme();
+
+    /*created From theme.js it sets the theme that is chosen */
+    setSelectedTheme();
     
-        /*created From theme.js it sets the theme that is chosen */
-        setSelectedTheme();
-        
-        // ---Part Two---
-        import {HttpClient} from "./http-client.js";
+    // ---Part Two---
+    import HttpClient from "./http-client.js";
 
-        let http = new HttpClient();
+    let http = new HttpClient();
 
-        const isbns = [
-            '0345339681',
-            '0261103571',
-            '9780593099322',
-            '9780261102361',
-            '9780261102378',
-            '9780590302715',
-            '9780316769532',
-            '9780743273565',
-            '9780590405959'
-        ];
+    const isbn = [
+        '0345339681',
+        '0261103571',
+        '9780593099322',
+        '9780261102361',
+        '9780261102378',
+        '9780590302715',
+        '9780316769532',
+        '9780743273565',
+        '9780590405959'
+    ];
 
-        console.log(isbns);
-        const params = {
-            "bibkeys": `ISBN: ${isbns.join(",")}`,
-            "format": "json",
-            "jscmd": "details"
-        };
+    console.log(isbn);
+    let params = {
+        "bibkeys": `ISBN: ${isbn.join(",")}`,
+        "format": "json",
+        "jscmd": "details"
+    };
 
+    function addIsbnClickEvents() {
+    let viewButtons = document.querySelectorAll('#bookList tbody .isbn-link') 
 
-        http.get("https://openlibrary.org/api/books", params).then(res => {
-          console.log(res);
-          document.getElementById('bookList').innerHTML = buildHtmlString(res, 'table');
+    // iterates over the viewButtons to continue to populate until it has the full length or all the data inside the viewButtons -- which is the id of bookTable tbody and .isbn-link found in our tableData and HTML class/id values
+    for (let i = 0; i < viewButtons.length; i++){
+      viewButtons[i].addEventListener("click", getBook);
 
-          addIsbnClickEvents();
-        })
-        .catch(e => {
-          console.log(e);
-        } )
+    }
 
-        function getBook(e) {
-          e.preventDefault();
+  }
+    http.get("https://openlibrary.org/api/books", params).then(res => {
+      console.log(res);
+      document.getElementById('bookList').innerHTML = buildHtmlString(res, 'table');
 
-          let self = this;
-          let isbn = self.innerText;
-          // let newParams = new params();
-          const params = {
-            "bibkeys": `ISBN: ${isbns.join(",")}`,
-            "format": "json",
-            "jscmd": "details"
-        };
-        console.log(params);
-          http.get("https://openlibrary.org/api/books", params).then(res => {
-            document.getElementById('selectedBook').innerHTML = buildHtmlString(res, 'ul');
-          })
-          .catch(e => {
-            console.log(e);
-          }); 
-        }
+      addIsbnClickEvents();
+    })
+    .catch(e => {
+      console.log(e);
+    } )
 
-       function buildHtmlString(res, format) {
-          let tableString =  `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
-            // console.log(tableString);
-          let ulString = '';
-            // console.log(ulString);
-          for(let key in res) {
-            ulString += `<ul style="list-style-type:none">`;
-              // console.log(ulString);
-            if (res.hasOwnProperty(key)){
-              let authors = [];
-              if (res[key].details.authors){
-                authors = res[key].details.authors.map(function(author) {
-                  // console.log(author.name);
-                  return author.name;
-                })
-              }
-              let book = {
-                isbn: res[key].details.isbn_11 || res[key].details.isbn_13 || res[key].details.isbn_10,
-                title: res[key].details.title,
-                description: res[key].details.subtitle || res[key].details.subtitle || "N/A",
-                pages: res[key].details.number_of_pages || res[key].details.number_of_pages || "N/A",
-                authors: authors ? authors.join(',') : ""
-              }
-              console.log(book);
+    function getBook(e) {
+      e.preventDefault();
 
-              ulString += `<li><b>ISBN:</b> ${book.isbn}</li>
-              <li><b>Title:</b ${book.title}</li>
-                <li><b>Description:</b> ${book.description}</li>
-                <li><b>Pages:</b> ${book.pages}</li>
-                <li><b>Authors:</b> ${book.authors}</li><ul>`;
-              // console.log(ulString);
-              tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td>
-                <td>${book.title}</td>
-                <td>${book.description}</td>
-                <td>${book.pages}</td>
-                <td>${book.authors}</td></tr>`;
-              // console.log(tableString);
-            }
+      let self = this;
+      let isbn = self.innerText;
+      // let newParams = new params();
+      let params = {
+        "bibkeys": `ISBN: ${isbn}`,
+        "format": "json",
+        "jscmd": "details"
+    };
+    console.log(params);
+      http.get("https://openlibrary.org/api/books", params).then(res => {
+        document.getElementById('selectedBook').innerHTML = buildHtmlString(res, 'ul');
+      })
+      .catch(e => {
+        console.log(e);
+      }); 
+    }
+
+   function buildHtmlString(res, format) {
+      let tableString =  `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
+        // console.log(tableString);
+      let ulString = '';
+        // console.log(ulString);
+      for(let key in res) {
+        ulString += `<ul style="list-style-type:none">`;
+          // console.log(ulString);
+        if (res.hasOwnProperty(key)){
+          let authors = [];
+          if (res[key].details.authors){
+            authors = res[key].details.authors.map(function(author) {
+              // console.log(author.name);
+              return author.name;
+            })
           }
-          tableString += `</table>`;
-          if (format === 'table') {
-              return tableString;
-            } else {
-              return ulString
-            }
-        };
+          let book = {
+            isbn: res[key].details.isbn_13 ? res[key].details.isbn_13 : res[key].details.isbn_10,
+            title: res[key].details.title,
+            description: res[key].details.subtitle ? res[key].details.subtitle : "N/A",
+            pages: res[key].details.number_of_pages ? res[key].details.number_of_pages : "N/A",
+            authors:authors.join(',')
+          }
+          console.log(book);
 
-      // ---Part One---
-     // when the DOM loads it will also load the books.xml data
-    //  document.addEventListener('DOMContentLoaded', function() {
-    //     let fileName = "../week-7/books.xml"; 
-
-    //     // loads our file
-    //     fetch(fileName)
-    //     .then(res => res.text())
-    //     .then(data => {
-    //       let domParser = new DOMParser();
-    //       let xmlBooks = domParser.parseFromString(data, 'text/xml');
-    //       loadBooks(xmlBooks); //calls our function to load the data into a table
-    //       addIsbnClickEvents(); //calls our function that will load the data into a list once clicked on the table value of isbn
-    //     });
-    //   });
-
-    //   // this function will display our xml information in a table
-    //   function loadBooks(xml) {
-    //     let books = xml.getElementsByTagName('book');
-
-    //     // created our table format
-    //     let tableData = `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
-    //     for(let book of books) {
-    //       // these are pulling the ids by the tag name
-    //       let isbn = book.getElementsByTagName('isbn')[0].childNodes[0].nodeValue;
-    //       let title = book.getElementsByTagName('title')[0].childNodes[0].nodeValue;
-    //       let description = book.getElementsByTagName('description')[0].childNodes[0].nodeValue;
-    //       let pages = book.getElementsByTagName('pages')[0].childNodes[0].nodeValue;
-    //       let authors = book.getElementsByTagName('authors')[0].childNodes[0].nodeValue;
-
-    //       // Notice: data-value and data-id both given a way to identify the value. one supplies with the title information, and the other supplies the id of the information. with out either of these it will not supple the tables and lists below
-    //       tableData += `<tr><td data-value="ISBN" data-id="${isbn}"><a href="#" class="isbn-link">${isbn}</a></td><td data-value="Title" data-id="${title}">${title}</td><td data-value="Description" data-id='${description}'>${description}</td><td data-value="Pages" data-id='${pages}'>${pages}</td><td data-value="Authors" data-id='${authors}'>${authors}</td></tr>`;
-    //     }
-    //     tableData  += `</table>`
-    //     document.getElementById("bookList").innerHTML = tableData;
-    //   }
-      
-    //   // this function when displays the information based on the xml doc in a list
-    //   function anchorClicked(e) {
-    //     e.preventDefault();
-
-    //     //I believe this is how its structuring our data, with out it we cannot display our data
-    //     let self = this;
-    //     let cell = self.parentElement; //parentElement is a read-only property, it returns the DOM node's parent element or null if no parent or not a DOM element
-    //     let row = cell.parentElement;
-
-    //     let data = row.querySelectorAll(`td`);
-
-    //     let bookData = `<ul style="list-style-type:none">`
-    //     for(let field of data) {
-          
-    //       // Notice: from tableData above where these values are used in dot notation, value is the labels and id is the values of the labels itself
-    //       bookData += `<li><b> ${field.dataset.value}:</b> ${field.dataset.id}`;
-
-
-    //     }
-    //     bookData += `</li></ul>`;
-    //     console.log(bookData);
-    //     document.getElementById("selectedBook").innerHTML = bookData;
-              
-    //   }
-
-      // a function that loops over the viewButtons variable when clicked on one of the isbn's
-      function addIsbnClickEvents() {
-        let viewButtons = document.querySelectorAll('#bookTable tbody .isbn-link') 
-
-        // iterates over the viewButtons to continue to populate until it has the full length or all the data inside the viewButtons -- which is the id of bookTable tbody and .isbn-link found in our tableData and HTML class/id values
-        for (let i = 0; i < viewButtons.length; i++){
-          viewButtons[i].addEventListener("click", getBook);
-
+          ulString += `<li><b>ISBN:</b> ${book.isbn}</li>
+          <li><b>Title:</b ${book.title}</li>
+            <li><b>Description:</b> ${book.description}</li>
+            <li><b>Pages:</b> ${book.pages}</li>
+            <li><b>Authors:</b> ${book.authors}</li></ul>`;
+          // console.log(ulString);
+          tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td>
+            <td>${book.title}</td>
+            <td>${book.description}</td>
+            <td>${book.pages}</td>
+            <td>${book.authors}</td></tr>`;
+          // console.log(tableString);
         }
-
       }
+      tableString += `</table>`;
+      if (format === 'table') {
+          return tableString;
+        } else {
+          return ulString
+        }
+    };
+
+  // ---Part One---
+ // when the DOM loads it will also load the books.xml data
+//  document.addEventListener('DOMContentLoaded', function() {
+//     let fileName = "../week-7/books.xml"; 
+
+//     // loads our file
+//     fetch(fileName)
+//     .then(res => res.text())
+//     .then(data => {
+//       let domParser = new DOMParser();
+//       let xmlBooks = domParser.parseFromString(data, 'text/xml');
+//       loadBooks(xmlBooks); //calls our function to load the data into a table
+//       addIsbnClickEvents(); //calls our function that will load the data into a list once clicked on the table value of isbn
+//     });
+//   });
+
+//   // this function will display our xml information in a table
+//   function loadBooks(xml) {
+//     let books = xml.getElementsByTagName('book');
+
+//     // created our table format
+//     let tableData = `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
+//     for(let book of books) {
+//       // these are pulling the ids by the tag name
+//       let isbn = book.getElementsByTagName('isbn')[0].childNodes[0].nodeValue;
+//       let title = book.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+//       let description = book.getElementsByTagName('description')[0].childNodes[0].nodeValue;
+//       let pages = book.getElementsByTagName('pages')[0].childNodes[0].nodeValue;
+//       let authors = book.getElementsByTagName('authors')[0].childNodes[0].nodeValue;
+
+//       // Notice: data-value and data-id both given a way to identify the value. one supplies with the title information, and the other supplies the id of the information. with out either of these it will not supple the tables and lists below
+//       tableData += `<tr><td data-value="ISBN" data-id="${isbn}"><a href="#" class="isbn-link">${isbn}</a></td><td data-value="Title" data-id="${title}">${title}</td><td data-value="Description" data-id='${description}'>${description}</td><td data-value="Pages" data-id='${pages}'>${pages}</td><td data-value="Authors" data-id='${authors}'>${authors}</td></tr>`;
+//     }
+//     tableData  += `</table>`
+//     document.getElementById("bookList").innerHTML = tableData;
+//   }
+  
+//   // this function when displays the information based on the xml doc in a list
+//   function anchorClicked(e) {
+//     e.preventDefault();
+
+//     //I believe this is how its structuring our data, with out it we cannot display our data
+//     let self = this;
+//     let cell = self.parentElement; //parentElement is a read-only property, it returns the DOM node's parent element or null if no parent or not a DOM element
+//     let row = cell.parentElement;
+
+//     let data = row.querySelectorAll(`td`);
+
+//     let bookData = `<ul style="list-style-type:none">`
+//     for(let field of data) {
+      
+//       // Notice: from tableData above where these values are used in dot notation, value is the labels and id is the values of the labels itself
+//       bookData += `<li><b> ${field.dataset.value}:</b> ${field.dataset.id}`;
 
 
-    </script>
+//     }
+//     bookData += `</li></ul>`;
+//     console.log(bookData);
+//     document.getElementById("selectedBook").innerHTML = bookData;
+          
+//   }
+
+  // a function that loops over the viewButtons variable when clicked on one of the isbn's
+
+
+
+</script>
   </body>
 </html>
