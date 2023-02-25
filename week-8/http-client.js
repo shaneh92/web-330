@@ -3,21 +3,12 @@
 
 =================================================================================================================
 */
-// export class HttpClient {
-//   async get(url, params = "") {
-//     let newUrl = new URL(url);
-//     newUrl.search = new URLSearchParams(params);
-
-//     const res = await fetch(newUrl.toString(), {
-//       method: "GET", // *GET, POST, PUT, DELETE, etc.
-//     });
-//     return res.json();
-//   }
-// }
-
-export default class HttpClient {
+//our HttPClient class exported
+export class HttpClient {
+  // an async function to generically get a website
   async get(url, params) {
     this.params = "";
+    // assign the variable to the new URL
     url = new URL(url);
     url.search = new URLSearchParams(params);
     //declared as const to keep the value
