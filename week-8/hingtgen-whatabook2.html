@@ -101,7 +101,7 @@
             '9780590405959'
         ];
 
-        
+        console.log(isbns);
         const params = {
             "bibkeys": `ISBN: ${isbns.join(",")}`,
             "format": "json",
@@ -162,13 +162,13 @@
                 pages: res[key].details.number_of_pages || res[key].details.number_of_pages || "N/A",
                 authors: authors ? authors.join(',') : ""
               }
-              // console.log(book);
+              console.log(book);
 
-              ulString = `<li><b>ISBN:</b> ${book.isbn}</li>
+              ulString += `<li><b>ISBN:</b> ${book.isbn}</li>
               <li><b>Title:</b ${book.title}</li>
                 <li><b>Description:</b> ${book.description}</li>
                 <li><b>Pages:</b> ${book.pages}</li>
-                <li><b>Authors:</b> ${book.authors}</li>`;
+                <li><b>Authors:</b> ${book.authors}</li><ul>`;
               // console.log(ulString);
               tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td>
                 <td>${book.title}</td>
