@@ -3,22 +3,19 @@
 ; Title: Assignment 8.2 WhatABook Part 2
 ; Author: Shane Hingtgen
 ; Bellevue University
-; Date: 02/21/23
-; Description: In this assignment we learn to create an XML document and how to fetch the data to create tables and lists from the xml
+; Date: 02/25/23
+; Description: In this assignment we learn to website data converted into json format
 ; Work Cited:
     Web 330 HTML, CSS, and JavaScript Requirements
     Web 330 Assign 8
     MDN Docs https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    MDN Docs https://developer.mozilla.org/en-US/docs/Web/Guide/Parsing_and_serializing_XML
-    MDN Docs https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
-    MDN Docs https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
-    MDN Docs https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
-    W3 Schools https://www.w3schools.com/xml/xml_whatis.asp
-    W3 Schools https://www.w3schools.com/xml/xml_usedfor.asp
+    MDN Docs https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+    MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+    MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
     W3 Schools https://www.w3schools.com/js/js_api_fetch.asp
-    W3 Schools https://www.w3schools.com/xml/xml_parser.asp
-    W3 Schools https://www.w3schools.com/xml/xml_validator.asp
+    W3 Schools https://www.w3schools.com/jsref/jsref_search.asp
     W3 Schools https://www.w3schools.com/jsref/obj_event.asp
+    W3 Schools https://www.w3schools.com/howto/howto_css_loader.asp
 =================================================================================================================
 -->
 <!DOCTYPE html>
@@ -58,7 +55,8 @@
           <div class="card">
             <div class="card-title">Book Listing</div>
             <div class="card-content" id="bookList">
-              <!-- will show the table from books.xml from the eventlisten DOMContentloaded -->
+              <div class="loader"></div> <!--A loader div to signal that our data is loading-->
+              <!-- will show the table once our website has been called and the data extracted -->
             </div>
           </div>
           <a class='return-home' href="../index.html">Return</a>
@@ -68,9 +66,9 @@
     <div class="assign-container">
       <div class="assign-content">
           <div class="card">
-              <!-- where the total is added with todays date -->
               <div class="card-title">Selected Book</div>
               <div class="card-content" id="selectedBook"> 
+                <!-- selectedBook will display here as a ul -->
               </div>
           </div>
       </div>
@@ -84,7 +82,6 @@
 
     /*created From theme.js it sets the theme that is chosen */
     setSelectedTheme();
-    
 
     // ---Part Two---
     import {HttpClient} from "./http-client.js";
@@ -123,7 +120,7 @@
       console.log(e);
     } )
 
-    
+    // the onclick function that is able to get the data from our table from getBook
     function addIsbnClickEvents() {
     let viewButtons = document.querySelectorAll('#bookList tbody .isbn-link') 
 
@@ -135,43 +132,53 @@
 
   }
 
+    // this function gets our books and is able to display in the correct div
     function getBook(e) {
       e.preventDefault();
 
       let self = this;
       let isbn = self.innerText;
       
+      // our new params, without .join
       let params = {
         "bibkeys": `ISBN:${isbn}`,
         "format": "json",
         "jscmd": "details"
     }
 
+      // another call on our async function to pull the data from the website
       http.get("https://openlibrary.org/api/books", params)
       .then(res => {
+        // data to be displayed here built in the function
         document.getElementById('selectedBook').innerHTML = buildHtmlString(res, "ul");
       })
+      // catches errors
       .catch(error => {
         console.log(error);
       }); 
     }
 
+    // This function will build our strings to the correct format, so when called it displays them
    function buildHtmlString(res, format) {
+      // table header format
       let tableString =  `<table id='bookTable' class='table'><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th>`;
-        // console.log(tableString);
+
       let ulString = "";
-        // console.log(ulString);
+       
       for(let key in res) {
+        // list format
         ulString += `<ul style="list-style-type:none">`;
-          // console.log(ulString);
+
         if (res.hasOwnProperty(key)){
           let authors = [];
           if (res[key].details.authors){
             authors = res[key].details.authors.map(function(author) {
-              // console.log(author.name);
+
               return author.name;
             })
           }
+
+          // how to sort our data with the use of ternary operators
           let book = {
             isbn: res[key].details.isbn_13 ? res[key].details.isbn_13 : res[key].details.isbn_10,
             title: res[key].details.title,
@@ -179,23 +186,26 @@
             pages: res[key].details.number_of_pages ? res[key].details.number_of_pages : "N/A",
             authors: authors.join(',')
           }
-          console.log(book);
 
+          // organization of how the data is to be presented
           ulString += `<li><b>ISBN:</b>${book.isbn}</li>
           <li><b>Title:</b>${book.title}</li>
           <li><b>Description:</b>${book.description}</li>
           <li><b>Pages:</b>${book.pages}</li>
           <li><b>Authors:</b>${book.authors}`;
-          // console.log(ulString);
+
+          // organization of how the data is to be presented
           tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td>
             <td>${book.title}</td>
             <td>${book.description}</td>
             <td>${book.pages}</td>
             <td>${book.authors}</td></tr>`;
-          // console.log(tableString);
         }
       }
+
+      // end our table
       tableString += `</table>`;
+      // if format is === table then it will display the tablestring, if it isnt, it displays the list string, in the case of clicking on isbn its no longer a table when its displayed in selected Books
       if (format === 'table') {
           return tableString;
         } else {
